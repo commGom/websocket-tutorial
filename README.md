@@ -28,3 +28,8 @@
     
 - controller
     - MessageController (MessageMapping, SendTo Annotation)
+  
+## 2. 화면 구현
+- index.html
+- scripts.js
+

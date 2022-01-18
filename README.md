@@ -1,5 +1,5 @@
 # websocket-tutorial
-[Youtube Video(4)](https://www.youtube.com/watch?v=XY5CUuE6VOk&list=PLXy8DQl3058PNFvxOgb5k52Det1DGLWBW&index=1&ab_channel=LiliumCode, "google link")
+[Youtube Video(4)](https://www.youtube.com/watch?v=XY5CUuE6VOk&list=PLXy8DQl3058PNFvxOgb5k52Det1DGLWBW&index=1&ab_channel=LiliumCode, "Springboot Websocket Video Link")
 
 ## 1. 환경설정 
 - 라이브러리 의존성 주입

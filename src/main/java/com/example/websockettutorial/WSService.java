@@ -7,16 +7,24 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WSService {
-    private SimpMessagingTemplate simpMessagingTemplate;
+    private final SimpMessagingTemplate simpMessagingTemplate;
+    private final NotificationService notificationService;
 
     @Autowired
-    public WSService(SimpMessagingTemplate simpMessagingTemplate) {
+    public WSService(SimpMessagingTemplate simpMessagingTemplate, NotificationService notificationService) {
         this.simpMessagingTemplate = simpMessagingTemplate;
+        this.notificationService = notificationService;
     }
 
     public void notifyFrontend(final String message){
         ResponseMessage response = new ResponseMessage(message);
-
+        notificationService.sendGlobalNotification();
         simpMessagingTemplate.convertAndSend("/topic/messages",response);
+    }
+
+    public void notifyUser(final String id, final String message){
+        ResponseMessage response = new ResponseMessage(message);
+        notificationService.sendPrivateNotification(id);
+        simpMessagingTemplate.convertAndSendToUser(id,"/topic/private-messages",response);
     }
 }

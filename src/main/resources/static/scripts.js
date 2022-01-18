@@ -12,7 +12,7 @@ $(document).ready(function() {
     $("#send-private").click(function() {
         sendPrivateMessage();
     });
-
+    //알림창 클릭하면 알림 0으로 reset
     $("#notifications").click(function() {
         resetNotificationCount();
     });
@@ -24,6 +24,7 @@ function connect() {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
+        //연결이 되면 알림창이 있는지 확인
         updateNotificationDisplay();
         // /topic/messages 구독 중 (메시지오면 응답?)
         stompClient.subscribe('/topic/messages', function (message) {
@@ -33,6 +34,8 @@ function connect() {
         stompClient.subscribe('/user/topic/private-messages', function (message) {
             showMessage(JSON.parse(message.body).content);
         });
+        //메시지가 오면 알림 수 1씩 증가하고 내용 추가하는 updateNotification 호출
+
         // /topic/global-notifications 구독 중 (메시지오면 응답?)
         stompClient.subscribe('/topic/global-notifications', function (message) {
             notificationCount = notificationCount + 1;

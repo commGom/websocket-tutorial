@@ -3,6 +3,9 @@ package com.example.websockettutorial.dto;
 public class ResponseMessage {
     private String content;
 
+    public ResponseMessage() {
+    }
+
     public ResponseMessage(String content) {
         this.content = content;
     }

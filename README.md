@@ -15,6 +15,9 @@
       ```
 
 - WebSocketConfig 환경설정 클래스
+```java
+    registry.addEndpoint("/our-websocket").withSockJS();
+```
 ```
         implements WebSocketMessageBrokerConfigurer
         - websocket destination prefix 지정
@@ -32,4 +35,36 @@
 ## 2. 화면 구현
 - index.html
 - scripts.js
+### SockJS
+```js
+function connect() {
+    var socket = new SockJS('/our-websocket');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        updateNotificationDisplay();
+        stompClient.subscribe('/topic/messages', function (message) {
+            showMessage(JSON.parse(message.body).content);
+        });
 
+        stompClient.subscribe('/user/topic/private-messages', function (message) {
+            showMessage(JSON.parse(message.body).content);
+        });
+
+        stompClient.subscribe('/topic/global-notifications', function (message) {
+            notificationCount = notificationCount + 1;
+            updateNotificationDisplay();
+        });
+
+        stompClient.subscribe('/user/topic/private-notifications', function (message) {
+            notificationCount = notificationCount + 1;
+            updateNotificationDisplay();
+        });
+    });
+}
+```
+
+## 3. 서비스 구현
+- WSService
+  - 메시지 보낸 것 보여주는 service
+- WSController
